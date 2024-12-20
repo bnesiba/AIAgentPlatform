@@ -15,10 +15,10 @@ namespace ChatSessionFlow
             this.reduce(CurrentContext_OnChatResponseReceived_AddToContext, ChatSessionActions.ChatResponseReceived()),
             this.reduce(CurrentContext_OnToolExecutionCompleted_AddToContext, ChatSessionActions.ToolExecutionSucceeded()),
             this.reduce(RequestStack_OnChatRequested_PushRequestToStack, ChatSessionActions.ChatRequested()),
-            this.reduce(RequestStack_OnChatRequestReceived_PopRequestFromStack, ChatSessionActions.ToolExecutionsCompleted(), ChatSessionActions.ToolsExecutionEmpty()),
+            this.reduce(RequestStack_OnChatRequestReceived_PopRequestFromStack, ChatSessionActions.ToolExecutionsCompleted(), ChatSessionActions.ChatInteractionCompleted()),
             this.reduce(CurrentContext_OnChatRequestReceived_IncrementCount, ChatSessionActions.ChatRequested()),
-            this.reduce(CurrentSession_OnChatSessionStart_StartNewSession, ChatSessionActions.ChatSessionStart()),
-            this.reduce(CurrentSession_OnChatSessionCompleted_CompleteSession, ChatSessionActions.ChatSessionComplete())
+            this.reduce(CurrentSession_OnChatSessionStart_StartNewSession, ChatSessionActions.ChatSubContextStart()),
+            this.reduce(CurrentSession_OnChatSessionCompleted_CompleteSession, ChatSessionActions.ChatSubContextComplete())
 
         };
 

@@ -6,6 +6,7 @@ using ActionFlow;
 using ToolManagementFlow.Models;
 using ToolManagementFlow;
 using ChatSessionFlow.ToolDefinitions;
+using FakeDataStorageManager;
 
 namespace ChatSessionFlow
 {
@@ -15,14 +16,16 @@ namespace ChatSessionFlow
         private FlowActionHandler _flowActionHandler;
         private FlowStateData<ChatSessionEntity> _flowStateData;
         private FlowStateData<ToolManagementStateEntity> _toolStateData;
-        
+        private SessionStorage _sessionStorage;
 
-        public ChatSessionEffects(FlowActionHandler flowActHandler, FlowStateData<ChatSessionEntity> stateData, FlowStateData<ToolManagementStateEntity> toolData, ChatGPTRepo chatRepo)
+
+        public ChatSessionEffects(FlowActionHandler flowActHandler, FlowStateData<ChatSessionEntity> stateData, FlowStateData<ToolManagementStateEntity> toolData, ChatGPTRepo chatRepo, SessionStorage sessionStorage)
         {
             _flowActionHandler = flowActHandler;
             _flowStateData = stateData;
             _toolStateData = toolData;
             _chatGPTRepo = chatRepo;
+            _sessionStorage = sessionStorage;
         }
 
         List<IFlowEffectBase> IFlowStateEffects.SideEffects => new List<IFlowEffectBase>
@@ -30,6 +33,7 @@ namespace ChatSessionFlow
            this.effect(OnInitialChatMsg_CreateChatRequest_ResolveChatRequested, ChatSessionActions.InitAssistantChat()),
            this.effect(OnTooledAsstantInit_SetToolset_ResolveInitAssistantChat, ChatSessionActions.InitTooledAssistantChat()),
            this.effect(OnChatRequested_CallChatGPT_ResolveResponseReceived, ChatSessionActions.ChatRequested()),
+           this.effect(OnChatInteractionCompleted_UpdateSessionStorage, ChatSessionActions.ChatInteractionCompleted())
         };
 
         //Effect Methods
@@ -69,6 +73,20 @@ namespace ChatSessionFlow
 
             var response = _chatGPTRepo.Chat(chatRequest.Parameters);
             return ChatSessionActions.ChatResponseReceived(response);
+        }
+
+        public FlowActionBase OnChatInteractionCompleted_UpdateSessionStorage(FlowActionBase completedAction)
+        {
+            //get messages and Id from state
+            var currentMessages = _flowStateData.CurrentState(ChatSessionSelectors.GetChatContext);
+            var currentSessionId = _flowStateData.CurrentState(ChatSessionSelectors.GetSessionId);
+
+            if (currentMessages != null)
+            {
+                _sessionStorage.UpdateSession(currentSessionId, currentMessages);
+            }
+
+            return ChatSessionActions.ChatSessionUpdated(currentSessionId);
         }
     }
 }

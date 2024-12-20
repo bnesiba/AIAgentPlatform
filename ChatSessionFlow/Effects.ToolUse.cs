@@ -1,6 +1,7 @@
 ﻿using ActionFlow;
 using ActionFlow.Models;
 using ChatSessionFlow.models;
+using FakeDataStorageManager;
 using OpenAIConnector.ChatGPTRepository.models;
 using ToolManagementFlow;
 using ToolManagementFlow.Models;
@@ -60,7 +61,7 @@ namespace ChatSessionFlow
             }
             else
             {
-                return ChatSessionActions.ToolsExecutionEmpty();
+                return ChatSessionActions.ChatInteractionCompleted();
             }
         }
 

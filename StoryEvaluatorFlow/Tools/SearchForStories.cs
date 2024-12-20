@@ -7,7 +7,7 @@ namespace StoryEvaluatorFlow.Tools
 {
     public class SearchForStories : IToolDefinition
     {
-        private TotallyRealDatabase<StoryEvaluatorEntity> _definitelyADatabase; 
+        private TotallyRealStoryDatabase<StoryEvaluatorEntity> _definitelyADatabase; 
 
         
         //static accessor for Tool Management
@@ -50,7 +50,7 @@ namespace StoryEvaluatorFlow.Tools
 
         };
 
-        public SearchForStories(TotallyRealDatabase<StoryEvaluatorEntity> aDatabase)
+        public SearchForStories(TotallyRealStoryDatabase<StoryEvaluatorEntity> aDatabase)
         {
             _definitelyADatabase = aDatabase;
         }

@@ -54,7 +54,9 @@ builder.Services.UseReducer<ToolManagementReducer, ToolManagementStateEntity>();
 builder.Services.UseEffects<StoryEvaluatorEffects>();
 builder.Services.UseReducer<StoryEvaluationReducer, StoryEvaluatorEntity>();
 
-builder.Services.AddSingleton<TotallyRealDatabase<StoryEvaluatorEntity>>();
+builder.Services.AddSingleton<TotallyRealStoryDatabase<StoryEvaluatorEntity>>();
+
+builder.Services.AddSingleton<SessionStorage>();
 
 var app = builder.Build();
 

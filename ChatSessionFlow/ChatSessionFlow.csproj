@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FakeDataStorageManager\FakeDataStorageManager.csproj" />
     <ProjectReference Include="..\GoogleCloudConnector\GoogleCloudConnector.csproj" />
     <ProjectReference Include="..\ToolManagementFlow\ToolManagementFlow.csproj" />
   </ItemGroup>

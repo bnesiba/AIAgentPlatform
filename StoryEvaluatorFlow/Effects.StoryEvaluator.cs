@@ -16,11 +16,11 @@ namespace ChatSessionFlow
         private FlowStateData<StoryEvaluatorEntity> _storyEvaluatorState;
         private FlowStateData<ToolManagementStateEntity> _toolStateData;
         private FlowActionHandler _flowActionHandler;
-        private TotallyRealDatabase<StoryEvaluatorEntity> _totallyADatabase;
+        private TotallyRealStoryDatabase<StoryEvaluatorEntity> _totallyADatabase;
 
 
 
-        public StoryEvaluatorEffects(FlowActionHandler flowHandler, FlowStateData<StoryEvaluatorEntity> storyState, FlowStateData<ToolManagementStateEntity> toolState, TotallyRealDatabase<StoryEvaluatorEntity> storyDatabase)
+        public StoryEvaluatorEffects(FlowActionHandler flowHandler, FlowStateData<StoryEvaluatorEntity> storyState, FlowStateData<ToolManagementStateEntity> toolState, TotallyRealStoryDatabase<StoryEvaluatorEntity> storyDatabase)
         {
             _flowActionHandler = flowHandler;
             _storyEvaluatorState = storyState;

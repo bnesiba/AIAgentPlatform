@@ -19,5 +19,7 @@ namespace ChatSessionFlow
 
         public static FlowDataSelector<ChatSessionEntity, OpenAIChatMessage> GetLatestMessage = 
             new FlowDataSelector<ChatSessionEntity, OpenAIChatMessage>((stateData) => stateData.CurrentContext.LastOrDefault());
+
+        public static FlowDataSelector<ChatSessionEntity, Guid> GetSessionId = new FlowDataSelector<ChatSessionEntity, Guid>((stateData) => stateData.CurrentSession);
     }
 }

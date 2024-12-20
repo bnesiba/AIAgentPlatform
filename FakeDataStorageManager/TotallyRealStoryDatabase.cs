@@ -3,14 +3,14 @@ using Newtonsoft.Json;
 
 namespace FakeDataStorageManager
 {
-    public class TotallyRealDatabase<T> : ITotallyADatabase where T : ITagSearchable
+    public class TotallyRealStoryDatabase<T> : ITotallyAStoryDatabase where T : ITagSearchable
     {
         public Dictionary<string, List<Guid>> TagToStoryIds { get; set; }
         public Dictionary<Guid, T> StoryIdToStory { get; set; }
 
         public Dictionary<Guid, string> StoryFullText { get; set; }
 
-        public TotallyRealDatabase()
+        public TotallyRealStoryDatabase()
         {
             TagToStoryIds = new Dictionary<string, List<Guid>>();
             StoryIdToStory = new Dictionary<Guid, T>();
@@ -81,7 +81,7 @@ namespace FakeDataStorageManager
         }
     }
 
-    public interface ITotallyADatabase
+    public interface ITotallyAStoryDatabase
     {
         public List<string> GetSerializedResultsByTagsAndAuthors(List<string> searchTags, List<string> authors);
     }
